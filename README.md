@@ -1,12 +1,39 @@
+# k6-influxdb-grafana-docker-load-testing
+
+# 🚀 best practices, workflows, scripts and scenarios that Cloud Posse uses for load and performance testing of websites and applications 🚀
+
+https://github.com/coding-to-music/k6-influxdb-grafana-docker-load-testing
+
+From / By https://github.com/cloudposse
+
+https://github.com/cloudposse/load-testing
+
+## Environment variables:
+
+```java
+
+```
+
+## GitHub
+
+```java
+git init
+git add .
+git remote remove origin
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:coding-to-music/k6-influxdb-grafana-docker-load-testing.git
+git push -u origin main
+```
+
 ![Cloud Posse](https://cloudposse.com/logo-300x69.png)
 
 # load-testing
 
 A collection of best practices, workflows, scripts and scenarios that Cloud Posse uses for load and performance testing of websites and applications (in particular those deployed on Kubernetes clusters).
 
-__NOTE:__ All load testing scenarios in [scenarios](scenarios) are just examples and are provided here for reference.
+**NOTE:** All load testing scenarios in [scenarios](scenarios) are just examples and are provided here for reference.
 Consider updating them to reflect your environment.
-
 
 ## Introduction
 
@@ -17,36 +44,33 @@ For load and performance testing, the workflow consists of these main steps:
 3. [Perform load testing and analyze the results](#perform-load-testing-and-analyze-the-results)
 4. [Suggest improvements and tuning procedures for the infrastructure and application under test](#suggest-improvements-and-tuning-procedures-for-the-infrastructure-and-application-under-test)
 
-
 ## Select and configure load testing tools
 
 We use [k6](https://github.com/loadimpact/k6) from [Load Impact](https://loadimpact.com/) for the following reasons:
 
-* **Open Source** - well documented (see [docs](https://docs.k6.io/docs)) and with simple command line usage
-* **Synthetic Testing** - allows to easily create load test scenarios based on virtual users and simulated traffic configurations
-* **Small Footprint** - implemented in [Go](https://golang.org/), which has excellent support for concurrency and small memory footprint
-* **JavaScript DSL** - scenario scripting in `JavaScript` ES2015/ES6 with support for local and remote modules
-* **Testing as Code** - test logic and configuration options are both in JS for version control friendliness
-* **Command-line Driven** - can be run from the command line with command & control through CLI
-* **Compatible with [HAR](http://www.softwareishard.com/blog/har-12-spec/)** - has a built-in [HAR](http://www.softwareishard.com/blog/har-12-spec/) converter that will read HAR files and convert them to `k6` scripts (see [session recording](https://docs.k6.io/docs/session-recording-har-support))
-* **Automated Testing** - can be easily integrated into CI/CD pipelines
-* **Comprehensive Metrics** - provides a comprehensive set of built-in [metrics](https://docs.k6.io/docs/result-metrics)
-* **Beautiful Visualizations** - can stream metrics into [InfluxDB](https://www.influxdata.com/) for storage and visualization with [Grafana](https://grafana.com/) (see [influxdb-grafana](https://docs.k6.io/docs/influxdb-grafana))
+- **Open Source** - well documented (see [docs](https://docs.k6.io/docs)) and with simple command line usage
+- **Synthetic Testing** - allows to easily create load test scenarios based on virtual users and simulated traffic configurations
+- **Small Footprint** - implemented in [Go](https://golang.org/), which has excellent support for concurrency and small memory footprint
+- **JavaScript DSL** - scenario scripting in `JavaScript` ES2015/ES6 with support for local and remote modules
+- **Testing as Code** - test logic and configuration options are both in JS for version control friendliness
+- **Command-line Driven** - can be run from the command line with command & control through CLI
+- **Compatible with [HAR](http://www.softwareishard.com/blog/har-12-spec/)** - has a built-in [HAR](http://www.softwareishard.com/blog/har-12-spec/) converter that will read HAR files and convert them to `k6` scripts (see [session recording](https://docs.k6.io/docs/session-recording-har-support))
+- **Automated Testing** - can be easily integrated into CI/CD pipelines
+- **Comprehensive Metrics** - provides a comprehensive set of built-in [metrics](https://docs.k6.io/docs/result-metrics)
+- **Beautiful Visualizations** - can stream metrics into [InfluxDB](https://www.influxdata.com/) for storage and visualization with [Grafana](https://grafana.com/) (see [influxdb-grafana](https://docs.k6.io/docs/influxdb-grafana))
 
 Read more about k6's features and metrics:
 
-* [Features](https://docs.k6.io/docs/welcome#section-features)
-* [Interpret test results](http://support.loadimpact.com/knowledgebase/articles/174121-how-do-i-interpret-test-results)
-
-
+- [Features](https://docs.k6.io/docs/welcome#section-features)
+- [Interpret test results](http://support.loadimpact.com/knowledgebase/articles/174121-how-do-i-interpret-test-results)
 
 ### Installation
 
 The [docker-compose](docker-compose.yml) file builds three Docker images:
 
-* [InfluxDB](https://www.influxdata.com/)
-* [Grafana](https://grafana.com/)
-* [k6](https://github.com/loadimpact/k6)
+- [InfluxDB](https://www.influxdata.com/)
+- [Grafana](https://grafana.com/)
+- [k6](https://github.com/loadimpact/k6)
 
 Run [docker-compose up](https://docs.docker.com/compose/reference/up/) to build the containers and run `InfluxDB` and `Grafana` in the background
 
@@ -69,7 +93,6 @@ Then select `myinfluxdb` from the `Select a InfluxDB data source` dropdown and c
 
 ###
 
-
 ## Implement load testing scenarios and scripts
 
 To establish a baseline, first we'll load test the website's home page with one concurrent user.
@@ -80,18 +103,16 @@ This will allow us to see the best performing numbers, against which we'd compar
 
 ```js
 import http from "k6/http";
-import {check} from "k6";
-import {config} from "./utils.js";
+import { check } from "k6";
+import { config } from "./utils.js";
 
-export function setup() {
-}
+export function setup() {}
 
-export function teardown(data) {
-}
+export function teardown(data) {}
 
 export default function (data) {
-    let res = http.get(config.baseUrl);
-    check(res, {"status is 200": (r) => r.status === 200});
+  let res = http.get(config.baseUrl);
+  check(res, { "status is 200": (r) => r.status === 200 });
 }
 ```
 
@@ -138,7 +159,6 @@ Open the `Grafana` dashboard at http://localhost:3000 to see the load test resul
 ![Load Scenario 01 Grafana Dashboard](images/load-testing-grafana-scenario-01.png)
 
 ###
-
 
 We assume that we want the website to handle 50 concurrent users.
 
@@ -216,7 +236,6 @@ execution: local
 
 ```
 
-
 Check the Kubernetes pods CPU and memory consumption in the Kubernetes `Grafana` dashboard
 
 ###
@@ -225,9 +244,7 @@ Check the Kubernetes pods CPU and memory consumption in the Kubernetes `Grafana`
 
 ###
 
-
 We can conclude that with the current CPU and memory configurations for Kubernetes pods, the site can handle 50 requests per second to the home page.
-
 
 ## Perform load testing and analyze the results
 
@@ -361,37 +378,32 @@ Check the Kubernetes pods CPU and memory consumption in the Kubernetes `Grafana`
 
 From the load test stats and graphs above, we can conclude that the provisioned CPU and memory resources on the Kubernetes cluster are enough to sustain 50 concurrent users going through the entire flow.
 
-
 ## Suggest improvements and tuning procedures for the infrastructure and application under test
 
 Here are some optimization steps that we usually perform after running load tests:
 
-* Put all static assets behind a CDN (e.g. AWS CloudFront), do not overload the Kubernetes pods with serving the static assets
-* [Scale Cluster Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-cluster-horizontally) - Scale Kubernetes cluster horizontally by adding nodes
-* [Scale Cluster Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-cluster-vertically) - Scale Kubernetes cluster vertically by using different types of EC2 instances
-* [Scale Pods Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-pods-horizontally) - Scale Kubernetes pods horizontally by increasing the replica count
-* [Scale Pods Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-pods-vertically) - Scale Kubernetes pods vertically by increasing CPU and Memory limits
-* [Scale Nginx Ingress Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-nginx-ingress-horizontally) - Scale Nginx Ingress pods horizontally by increasing the replica count
-* [Scale Nginx Ingress Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-nginx-ingress-vertically) - Scale Nginx Ingress vertically by increasing CPU and Memory limits
-* [Tune Nginx](https://docs.cloudposse.com/kubernetes-optimization/tune-nginx) - Tune Nginx parameters (timeouts, worker processes, logs, http)
-* Optimize application and web servers' parameters (e.g. concurrency, threads and processes, thread pools, timeouts, memory limits)
-* [Optimize databases](https://docs.cloudposse.com/kubernetes-optimization/optimize-database-indexes) - Optimize database queries and indexes
-
+- Put all static assets behind a CDN (e.g. AWS CloudFront), do not overload the Kubernetes pods with serving the static assets
+- [Scale Cluster Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-cluster-horizontally) - Scale Kubernetes cluster horizontally by adding nodes
+- [Scale Cluster Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-cluster-vertically) - Scale Kubernetes cluster vertically by using different types of EC2 instances
+- [Scale Pods Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-pods-horizontally) - Scale Kubernetes pods horizontally by increasing the replica count
+- [Scale Pods Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-pods-vertically) - Scale Kubernetes pods vertically by increasing CPU and Memory limits
+- [Scale Nginx Ingress Horizontally](https://docs.cloudposse.com/kubernetes-optimization/scale-nginx-ingress-horizontally) - Scale Nginx Ingress pods horizontally by increasing the replica count
+- [Scale Nginx Ingress Vertically](https://docs.cloudposse.com/kubernetes-optimization/scale-nginx-ingress-vertically) - Scale Nginx Ingress vertically by increasing CPU and Memory limits
+- [Tune Nginx](https://docs.cloudposse.com/kubernetes-optimization/tune-nginx) - Tune Nginx parameters (timeouts, worker processes, logs, http)
+- Optimize application and web servers' parameters (e.g. concurrency, threads and processes, thread pools, timeouts, memory limits)
+- [Optimize databases](https://docs.cloudposse.com/kubernetes-optimization/optimize-database-indexes) - Optimize database queries and indexes
 
 For more details, have a look at our comprehensive [load testing documentation](https://docs.cloudposse.com/load-testing/) on our [Cloud Posse Developer Hub](https://docs.cloudposse.com).
-
 
 ## Credits
 
 Thanks to [Load Impact](https://loadimpact.com/) for the excellent [k6](https://github.com/loadimpact/k6) tool and [examples of load testing scenarios](https://github.com/loadimpact/k6/tree/master/samples)
-
 
 ## Help
 
 **Got a question?**
 
 File a GitHub [issue](https://github.com/cloudposse/load-testing/issues), send us an [email](mailto:hello@cloudposse.com) or reach out to us on [Gitter](https://gitter.im/cloudposse/).
-
 
 ## Contributing
 
@@ -405,14 +417,13 @@ If you are interested in being a contributor and want to get involved in develop
 
 In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
- 1. **Fork** the repo on GitHub
- 2. **Clone** the project to your own machine
- 3. **Commit** changes to your own branch
- 4. **Push** your work back up to your fork
- 5. Submit a **Pull request** so that we can review your changes
+1.  **Fork** the repo on GitHub
+2.  **Clone** the project to your own machine
+3.  **Commit** changes to your own branch
+4.  **Push** your work back up to your fork
+5.  Submit a **Pull request** so that we can review your changes
 
 **NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
-
 
 ## License
 
@@ -437,13 +448,11 @@ See [LICENSE](LICENSE) for full details.
     specific language governing permissions and limitations
     under the License.
 
-
 ## About
 
 `load-testing` is maintained and funded by [Cloud Posse, LLC][website].
 
 ![Cloud Posse](https://cloudposse.com/logo-300x69.png)
-
 
 Like it? Please let us know at <hello@cloudposse.com>
 
@@ -452,15 +461,14 @@ We love [Open Source Software](https://github.com/cloudposse/)!
 See [our other projects][community]
 or [hire us][hire] to help build your next cloud platform.
 
-  [website]: https://cloudposse.com/
-  [community]: https://github.com/cloudposse/
-  [hire]: https://cloudposse.com/contact/
-
+[website]: https://cloudposse.com/
+[community]: https://github.com/cloudposse/
+[hire]: https://cloudposse.com/contact/
 
 ## Contributors
 
-| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] |[![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_img]|[![Sarkis Varozian][sarkis_img]][sarkis_web]<br/>[Sarkis Varozian][sarkis_web] |
-|-------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
+| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] | [![Igor Rodionov][igor_img]][igor_web]<br/>[Igor Rodionov][igor_img] | [![Sarkis Varozian][sarkis_img]][sarkis_web]<br/>[Sarkis Varozian][sarkis_web] |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 
 [erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
 [erik_web]: https://github.com/osterman/

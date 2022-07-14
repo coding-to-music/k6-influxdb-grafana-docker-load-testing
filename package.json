@@ -1,0 +1,21 @@
+{
+  "name": "k6-influxdb-grafana-docker-load-testing",
+  "version": "1.0.0",
+  "description": "![Cloud Posse](https://cloudposse.com/logo-300x69.png)",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "git add . && git commit -m Build && git push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudposse/load-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloudposse/load-testing/issues"
+  },
+  "homepage": "https://github.com/cloudposse/load-testing#readme"
+}
