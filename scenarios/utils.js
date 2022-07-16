@@ -3,7 +3,7 @@ import { Counter, Gauge, Rate, Trend } from "k6/metrics";
 
 export let config = {
   // baseUrl: "< YOUR WEBSITE URL HERE, e.g. https://mywebsite.com >",
-  baseUrl: "https://react-redux-firebase-imdb.herokuapp.com",
+  baseUrl: "https://gatsby-status-dashboard.vercel.app/",
   userAgent:
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
 };
